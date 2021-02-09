@@ -12,8 +12,8 @@ def update():
 
 def init():
 	ws.connect()
-	cnx_end = tk.Button(window, command = ws.close_connection, text = "close connection")
-	cnx_end.pack()
+	b_close_connection = tk.Button(window, command = ws.close_connection, text = "close connection")
+	b_close_connection.pack()
 	window.after(200, update)
 #connect should actually activate on button press
 
