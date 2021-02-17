@@ -7,12 +7,14 @@ from websocket import WebSocketApp
 
 class WebsocketManager:
     _CONNECT_TIMEOUT_S = 5
+    _TICKERS = ["DOGE-PERP","BTC-PERP","ETH-PERP","SXP-PERP","DEFI-PERP","XMR-PERP"]
 
     def __init__(self):
         self.connect_lock = Lock()
         self.ws = None
         self.msg = None
         self.wst = None
+        self.index = 0
 
     def _get_url(self):
         return "wss://ftx.com/ws/"
@@ -23,8 +25,25 @@ class WebsocketManager:
 
     def _on_open(self, ws):
         print("opened")
-        sub_data = {"op": "subscribe", "channel": "ticker", "market": "DOGE-PERP"}
+        sub_data = {"op": "subscribe", "channel": "ticker", "market": self._TICKERS[self.index]}
         self.send_json(sub_data)
+
+    def current_ticker(self):
+        return self._TICKERS[self.index]
+
+    def change_sub(self):
+        print(f"changing sub from {self._TICKERS[self.index]} to {self._TICKERS[(self.index+1) % (len(self._TICKERS))]}")
+        sub_data = {"op": "unsubscribe", "channel": "ticker", "market": self._TICKERS[self.index]}
+        self.send_json(sub_data)
+        
+        if self.index < len(self._TICKERS)-1:
+            self.index += 1
+        else:
+            self.index = 0
+        
+        sub_data = {"op": "subscribe", "channel": "ticker", "market": self._TICKERS[self.index]}
+        self.send_json(sub_data)
+
 
 
     def send(self, message):
