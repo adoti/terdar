@@ -36,10 +36,7 @@ class WebsocketManager:
         sub_data = {"op": "unsubscribe", "channel": "ticker", "market": self._TICKERS[self.index]}
         self.send_json(sub_data)
         
-        if self.index < len(self._TICKERS)-1:
-            self.index += 1
-        else:
-            self.index = 0
+        self.index = (self.index + 1) % len(self._TICKERS)
         
         sub_data = {"op": "subscribe", "channel": "ticker", "market": self._TICKERS[self.index]}
         self.send_json(sub_data)
