@@ -1,5 +1,5 @@
 import websocket_manager
-#import trade_sizer as ts
+import trade_sizer as ts
 import tkinter as tk
 from tkinter import ttk
 import trade_sizer as ts
