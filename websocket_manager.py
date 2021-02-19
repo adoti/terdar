@@ -20,7 +20,7 @@ class WebsocketManager:
 
     def _on_message(self, ws, message):
         self.msg = json.loads(message)['data']['last']
-        print(json.loads(message))
+        #print(json.loads(message))
 
     def _on_open(self, ws):
         print("opened")
