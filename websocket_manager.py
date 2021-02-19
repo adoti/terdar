@@ -20,14 +20,14 @@ class WebsocketManager:
 
     def _on_message(self, ws, message):
         self.msg = json.loads(message)['data']['last']
-        #print(json.loads(message)['data']['last'])
+        print(json.loads(message))
 
     def _on_open(self, ws):
         print("opened")
         sub_data = {"op": "subscribe", "channel": "ticker", "market": self.ticker}
         self.send_json(sub_data)
 
-    def current_ticker(self):
+    def get_ticker(self):
         return self.ticker
 
     def change_sub(self,new_ticker):
