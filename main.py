@@ -13,6 +13,7 @@ def change_subscription(*args):
 	print(tickers_var.get())
 	target_var.set(0)
 	exit_var.set(0)
+	trade = ts.Trade()
 	ws.change_sub(tickers_var.get())
 
 def change_target(*args):

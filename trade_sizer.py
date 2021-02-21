@@ -33,9 +33,11 @@ class Trade:
 
 	def update_target(self,x):
 		self.target = x
+		self.set_dir()
 
 	def update_exit(self, x):
 		self.exit = x
+		self.set_dir()
 
 	def update_entry(self, x):
 		self.entry = x
