@@ -3,9 +3,24 @@ import trade_sizer as ts
 import tkinter as tk
 from tkinter import ttk
 import trade_sizer as ts
+import keys
+import rest_client as rc
 
-tickers = ["DOGE-PERP","BTC-PERP","ETH-PERP","SXP-PERP","DEFI-PERP","XMR-PERP"]
-bankroll = 25 #dollars
+tickers = ["DOGE-PERP",
+	"BTC-PERP",
+	"ETH-PERP",
+	"SXP-PERP",
+	"DEFI-PERP",
+	"XMR-PERP",
+	"DOT-PERP",
+	"LTC-PERP",
+	"LINK-PERP",
+	"GRT-PERP",
+	"AAVE-PERP",
+	"SOL-PERP",
+	"SRM-PERP"]
+ftx = rc.FtxClient(keys.API_KEY, keys.API_SECRET)
+bankroll = ftx.get_usd_value()
 
 trade = ts.Trade()
 
@@ -101,6 +116,7 @@ ticker_dropdown.grid(row=0, column=2)
 
 
 def update():
+	bankroll = ftx.get_usd_value()
 	trade.update_entry(ws.msg)
 	trade.set_dir()
 	price_p.config(text=str(ws.msg))
